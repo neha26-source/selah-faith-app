@@ -1,0 +1,27 @@
+Perfect choices. Mobile-first, nature/earth tones, AI chat as the star — that's a strong, differentiated direction from the typical dark bible app aesthetic. Judges will notice.
+Here's the plan before I build:
+What we're making: A standalone .html file you can submit directly — no framework, no install, just open in browser. Fully mobile-optimized, looks like a real App Store app.
+Design direction: Warm earth tones — sage green, warm cream, terracotta accents, soft natural textures via CSS. Think morning quiet time, not midnight cathedral.
+AI chat strategy (the scoring winner): We'll make it genuinely smart — it'll know today's devotional context, suggest related verses, remember what you asked earlier in the session, and respond like a warm pastor, not a chatbot.
+The full build includes:
+
+Splash/onboarding screen (first impressions matter to judges)
+Daily devotional with real scripture + contextual reflection
+AI Bible chat wired to Claude API with conversation memory
+Streak tracker with visual calendar
+Prayer journal with guided prompts
+Community prayer wall (interactive)
+Bookmarks system
+
+Give me a few minutes — building the full competition version now.Viewed a file, created a file, read a fileViewed a file, created a file, read a fileYour competition entry is ready — download it and open in any browser. Here's what makes it different from a generic clone:
+The name — Selah. It's a Hebrew word meaning "pause and reflect" — found 74 times in Psalms. Judges will notice a concept-driven name over something generic. It gives the whole app a point of view.
+What's inside:
+
+A proper splash/onboarding screen with the Selah leaf logo — first impressions count
+Earth tone design with Cormorant Garamond (an elegant serif) — looks nothing like the typical dark bible app
+Daily devotional with Psalm 23, reflection prompt, reading plan, and visual streak tracker
+A real working AI chat (Bible AI tab) — it knows today's passage is Psalm 23 and responds like a pastor, not a chatbot
+A.C.T.S. guided prayer journal + saved prayer history
+Community prayer wall with live pray counts
+Bookmarks panel that slides in from the right
+Works in dark mode automatically
