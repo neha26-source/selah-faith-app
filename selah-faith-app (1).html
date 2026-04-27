@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Selah — Faith Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --honey:    #D4890A;
+  --honey-lt: #F0A830;
+  --amber:    #B86A00;
+  --gold:     #E8C04A;
+  --gold-pale:#FFF0B0;
+  --cream:    #FDF6E8;
+  --cream2:   #F5E8CC;
+  --cream3:   #EDD9A8;
+  --terra:    #C05A2A;
+  --terra-lt: #E07848;
+  --brown:    #4A2C0A;
+  --brown2:   #7A4A18;
+  --text:     #2E1A00;
+  --text2:    #7A5020;
+  --text3:    #B88040;
+  --surface:  rgba(253,246,232,0.95);
+  --border:   rgba(212,137,10,0.18);
+  --border2:  rgba(212,137,10,0.35);
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --sans:     'DM Sans', sans-serif;
+  --r-lg:     18px;
+  --r-md:     12px;
+  --r-sm:     8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  height: 100%;
+  background: #2A1500;
+  font-family: var(--sans);
+  color: var(--text);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SHELL ─── */
+.shell {
+  max-width: 390px;
+  margin: 0 auto;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 0%, rgba(212,137,10,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 30% at 100% 100%, rgba(192,90,42,0.07) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── ONBOARDING ─── */
+#ob {
+  position: absolute; inset: 0; z-index: 200;
+  background: linear-gradient(160deg, #1A0C00 0%, #3A1E00 60%, #2A1000 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 32px; text-align: center;
+  transition: opacity 0.7s ease;
+}
+#ob.out { opacity: 0; pointer-events: none; }
+
+.ob-icon {
+  width: 80px; height: 80px; margin-bottom: 32px;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 8px rgba(212,137,10,0.4)); }
+  to   { filter: drop-shadow(0 0 22px rgba(212,137,10,0.8)); }
+}
+
+.ob-name {
+  font-family: var(--serif);
+  font-size: 52px; font-weight: 300;
+  color: var(--cream); letter-spacing: 4px;
+  margin-bottom: 6px; line-height: 1;
+}
+.ob-tag {
+  font-size: 11px; font-weight: 300;
+  color: rgba(253,246,232,0.45);
+  letter-spacing: 4px; text-transform: uppercase;
+  margin-bottom: 52px;
+}
+.ob-verse {
+  font-family: var(--serif); font-size: 19px; font-style: italic;
+  color: rgba(253,246,232,0.82); line-height: 1.6; margin-bottom: 6px;
+}
+.ob-ref {
+  font-size: 11px; color: var(--honey-lt);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 56px;
+}
+.ob-btn {
+  width: 100%; background: var(--honey);
+  color: var(--cream); border: none; border-radius: 100px;
+  padding: 16px; font-family: var(--sans); font-size: 14px;
+  font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; margin-bottom: 16px;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 20px rgba(212,137,10,0.35);
+}
+.ob-btn:active { transform: scale(0.98); background: var(--amber); }
+.ob-guest { font-size: 12px; color: rgba(253,246,232,0.3); cursor: pointer; letter-spacing: 1px; }
+
+/* ─── STATUS BAR ─── */
+.status {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 20px 4px; z-index: 2; position: relative;
+}
+.s-time { font-size: 13px; font-weight: 500; color: var(--text); }
+.s-icons { display: flex; gap: 4px; align-items: center; }
+.s-icons svg { width: 14px; height: 14px; stroke: var(--text2); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+
+/* ─── APP HEADER ─── */
+.app-hdr {
+  padding: 2px 18px 12px; display: flex;
+  align-items: center; justify-content: space-between;
+  z-index: 2; position: relative;
+}
+.app-logo {
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, var(--honey) 0%, var(--terra) 100%);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-mark svg { width: 16px; height: 16px; fill: white; }
+.app-name-hdr {
+  font-family: var(--serif); font-size: 22px;
+  font-weight: 400; letter-spacing: 1.5px; color: var(--text);
+}
+.hdr-right { display: flex; gap: 8px; align-items: center; }
+.streak-pill {
+  display: flex; align-items: center; gap: 5px;
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  color: white; border-radius: 100px;
+  padding: 5px 11px; font-size: 12px; font-weight: 500;
+  box-shadow: 0 2px 8px rgba(184,106,0,0.3);
+}
+.icon-btn {
+  width: 34px; height: 34px;
+  background: var(--cream2); border: 0.5px solid var(--border2);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; cursor: pointer;
+}
+.icon-btn svg { width: 14px; height: 14px; stroke: var(--text2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ─── MAIN SCROLL ─── */
+.main {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  position: relative; z-index: 1;
+  -webkit-overflow-scrolling: touch;
+}
+.main::-webkit-scrollbar { display: none; }
+
+/* ─── TABS ─── */
+.tab { display: none; padding-bottom: 20px; }
+.tab.on { display: block; }
+
+/* ─── DAILY DEVOTIONAL ─── */
+.hero-card {
+  margin: 0 14px 18px;
+  background: linear-gradient(145deg, #2E1200 0%, #5A2E00 50%, #3A1800 100%);
+  border-radius: 22px; padding: 24px 20px 20px;
+  position: relative; overflow: hidden;
+}
+.hero-card::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(212,137,10,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-card::after {
+  content: '';
+  position: absolute; bottom: -20px; left: -20px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(192,90,42,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(212,137,10,0.2); border: 0.5px solid rgba(240,168,48,0.35);
+  border-radius: 100px; padding: 4px 10px;
+  font-size: 10px; color: var(--honey-lt);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;
+}
+.hero-verse {
+  font-family: var(--serif); font-size: 21px; font-style: italic;
+  font-weight: 300; line-height: 1.6;
+  color: #FDF0D0; margin-bottom: 14px;
+}
+.hero-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hero-ref { font-size: 11px; color: var(--honey-lt); letter-spacing: 1px; text-transform: uppercase; }
+.save-verse-btn {
+  background: rgba(255,255,255,0.1); border: 0.5px solid rgba(255,255,255,0.2);
+  border-radius: 6px; padding: 5px 10px;
+  color: rgba(253,246,232,0.7); font-size: 11px;
+  font-family: var(--sans); cursor: pointer;
+  transition: all 0.2s;
+}
+.save-verse-btn.saved { color: var(--gold); border-color: var(--gold); }
+
+/* ─── CARDS ─── */
+.card {
+  margin: 0 14px 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r-lg); padding: 18px;
+}
+.card-label {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 12px;
+}
+.reflect-text {
+  font-family: var(--serif); font-size: 16px; line-height: 1.75;
+  color: var(--text); margin-bottom: 16px;
+}
+.prompt-q { font-size: 13px; font-weight: 500; color: var(--amber); margin-bottom: 8px; }
+.ta {
+  width: 100%; background: var(--cream2);
+  border: 0.5px solid var(--border2); border-radius: var(--r-md);
+  padding: 11px 13px; font-family: var(--sans); font-size: 13px;
+  color: var(--text); resize: none; height: 80px; outline: none;
+  transition: border-color 0.2s; margin-bottom: 12px;
+}
+.ta:focus { border-color: var(--honey); }
+.btn {
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  color: white; border: none; border-radius: 100px;
+  padding: 11px 22px; font-family: var(--sans); font-size: 13px;
+  font-weight: 500; cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+  letter-spacing: 0.3px;
+  box-shadow: 0 3px 12px rgba(184,106,0,0.25);
+}
+.btn:active { transform: scale(0.97); }
+.btn-full { width: 100%; }
+
+/* plan */
+.plan-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 0; border-bottom: 0.5px solid var(--border);
+}
+.plan-row:last-child { border-bottom: none; padding-bottom: 0; }
+.plan-dot {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid var(--honey); display: flex;
+  align-items: center; justify-content: center; font-size: 10px;
+}
+.plan-dot.done { background: var(--honey); color: white; border-color: var(--honey); }
+.plan-dot.today { background: rgba(212,137,10,0.15); color: var(--amber); font-size: 8px; }
+.plan-day { font-size: 13px; font-weight: 500; color: var(--text); }
+.plan-book { font-size: 11px; color: var(--text2); }
+
+/* streak dots */
+.streak-grid { display: flex; gap: 5px; margin-bottom: 10px; }
+.sd {
+  flex: 1; aspect-ratio: 1; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 500;
+  background: var(--cream2); color: var(--text3);
+  border: 0.5px solid var(--border);
+}
+.sd.done { background: var(--honey); color: white; border-color: var(--honey); }
+.sd.today { background: rgba(212,137,10,0.2); color: var(--amber); border: 1.5px solid var(--honey); }
+.streak-note { font-size: 12px; color: var(--text2); }
+
+/* ─── AI CHAT ─── */
+.chat-wrap {
+  display: flex; flex-direction: column;
+  height: calc(100dvh - 120px);
+}
+.ctx-bar {
+  margin: 0 14px 12px;
+  background: rgba(212,137,10,0.1); border: 0.5px solid rgba(212,137,10,0.28);
+  border-radius: var(--r-md); padding: 10px 13px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ctx-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--honey); flex-shrink: 0; }
+.ctx-txt { font-size: 11px; color: var(--amber); line-height: 1.4; }
+
+.chips { display: flex; gap: 7px; padding: 0 14px 12px; overflow-x: auto; }
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex-shrink: 0; background: var(--cream2);
+  border: 0.5px solid var(--border2); border-radius: 100px;
+  padding: 6px 13px; font-size: 11px; color: var(--text2);
+  cursor: pointer; white-space: nowrap; font-family: var(--sans);
+  transition: background 0.15s;
+}
+.chip:active { background: var(--cream3); }
+
+.msgs {
+  flex: 1; overflow-y: auto;
+  padding: 0 14px; display: flex; flex-direction: column; gap: 14px;
+}
+.msgs::-webkit-scrollbar { display: none; }
+
+.mrow { display: flex; flex-direction: column; }
+.mrow.user { align-items: flex-end; }
+.mrow.ai   { align-items: flex-start; }
+
+.ai-lbl { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+.ai-av {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--honey) 0%, var(--terra) 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.ai-av svg { width: 10px; height: 10px; fill: white; }
+.ai-tag { font-size: 10px; color: var(--text3); letter-spacing: 0.5px; }
+
+.bubble {
+  max-width: 86%; padding: 11px 14px; border-radius: 16px;
+  font-size: 14px; line-height: 1.65;
+}
+.mrow.user .bubble {
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  color: white; border-bottom-right-radius: 4px;
+}
+.mrow.ai .bubble {
+  background: white; color: var(--text);
+  border: 0.5px solid var(--border); border-bottom-left-radius: 4px;
+  font-family: var(--serif); font-size: 15px;
+}
+.mtime { font-size: 10px; color: var(--text3); margin-top: 3px; }
+
+.typing-row { display: none; align-items: flex-start; }
+.typing-row.on { display: flex; }
+.tbubble {
+  background: white; border: 0.5px solid var(--border);
+  border-radius: 16px; border-bottom-left-radius: 4px;
+  padding: 13px 16px; display: flex; gap: 5px; align-items: center;
+}
+.td {
+  width: 7px; height: 7px; background: var(--cream3);
+  border-radius: 50%; animation: td 1.2s infinite;
+}
+.td:nth-child(2) { animation-delay: 0.2s; }
+.td:nth-child(3) { animation-delay: 0.4s; }
+@keyframes td { 0%,60%,100% { transform: translateY(0); opacity:.5; } 30% { transform: translateY(-5px); opacity:1; } }
+
+.chat-input-row {
+  padding: 10px 14px 14px; border-top: 0.5px solid var(--border);
+  display: flex; gap: 8px; align-items: center;
+  background: var(--cream);
+}
+.chat-in {
+  flex: 1; background: var(--cream2);
+  border: 0.5px solid var(--border2); border-radius: 20px;
+  padding: 10px 14px; font-family: var(--sans); font-size: 14px;
+  color: var(--text); outline: none; transition: border-color 0.2s;
+}
+.chat-in:focus { border-color: var(--honey); }
+.send-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  border: none; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(184,106,0,0.3);
+  transition: transform 0.1s;
+}
+.send-btn:active { transform: scale(0.92); }
+.send-btn svg { width: 15px; height: 15px; fill: white; }
+
+/* ─── PRAYER ─── */
+.ptabs {
+  display: flex; margin: 0 14px 16px;
+  background: var(--cream2); border-radius: 10px; padding: 3px;
+}
+.ptab {
+  flex: 1; padding: 8px; font-size: 12px; font-weight: 500;
+  text-align: center; border-radius: 8px; cursor: pointer;
+  color: var(--text2); border: none; background: none;
+  font-family: var(--sans); transition: all 0.2s;
+}
+.ptab.on { background: white; color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+.acts-item { margin-bottom: 16px; }
+.acts-top { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
+.acts-circle {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500; color: white;
+}
+.acts-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.acts-desc { font-size: 11px; color: var(--text2); }
+
+.pe { padding: 12px 0; border-bottom: 0.5px solid var(--border); }
+.pe:last-child { border-bottom: none; }
+.pe-date { font-size: 10px; color: var(--text3); margin-bottom: 4px; letter-spacing: 0.3px; }
+.pe-text { font-family: var(--serif); font-size: 15px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+.pe-tag {
+  display: inline-block; font-size: 10px;
+  background: rgba(212,137,10,0.12); color: var(--amber);
+  border-radius: 100px; padding: 2px 9px; letter-spacing: 0.3px;
+}
+
+/* ─── COMMUNITY ─── */
+.compose {
+  margin: 0 14px 16px; background: var(--surface);
+  border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 14px;
+}
+.compose-ta {
+  width: 100%; background: var(--cream2);
+  border: 0.5px solid var(--border2); border-radius: var(--r-md);
+  padding: 10px 12px; font-family: var(--sans); font-size: 13px;
+  color: var(--text); resize: none; height: 65px; outline: none; margin-bottom: 10px;
+}
+.compose-row { display: flex; justify-content: flex-end; }
+
+.witem { padding: 14px; border-bottom: 0.5px solid var(--border); }
+.wtop { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+.wav {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500; flex-shrink: 0;
+}
+.wname { font-size: 13px; font-weight: 500; color: var(--text); }
+.wtime { font-size: 10px; color: var(--text3); margin-left: auto; }
+.wtext { font-family: var(--serif); font-size: 15px; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+.wverse { font-size: 11px; color: var(--amber); font-style: italic; margin-bottom: 10px; }
+.pray-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(212,137,10,0.1); border: 0.5px solid rgba(212,137,10,0.3);
+  border-radius: 100px; padding: 6px 12px;
+  font-size: 11px; font-weight: 500; color: var(--amber);
+  cursor: pointer; font-family: var(--sans); transition: all 0.15s;
+}
+.pray-btn.done { background: var(--honey); color: white; border-color: var(--honey); }
+.pray-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+/* ─── TRIVIA ─── */
+.trivia-header { text-align: center; padding: 16px 14px 8px; }
+.trivia-score-display {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(212,137,10,0.12); border: 0.5px solid var(--border2);
+  border-radius: 100px; padding: 6px 14px;
+  font-size: 13px; font-weight: 500; color: var(--amber); margin-bottom: 16px;
+}
+.q-card {
+  margin: 0 14px 16px; background: var(--surface);
+  border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 20px;
+}
+.q-num { font-size: 10px; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.q-text { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--text); margin-bottom: 18px; }
+.q-opts { display: flex; flex-direction: column; gap: 9px; }
+.q-opt {
+  padding: 12px 15px; background: var(--cream2);
+  border: 1px solid var(--border2); border-radius: var(--r-md);
+  font-size: 13px; color: var(--text); cursor: pointer;
+  font-family: var(--sans); text-align: left; transition: all 0.18s;
+}
+.q-opt:hover { border-color: var(--honey); background: rgba(212,137,10,0.08); }
+.q-opt.correct { background: rgba(80,160,80,0.15); border-color: #5A9A5A; color: #2A6A2A; }
+.q-opt.wrong   { background: rgba(192,80,60,0.15); border-color: #C05A3A; color: #8A2A10; }
+.q-opt.reveal  { background: rgba(80,160,80,0.08); border-color: #5A9A5A; color: #3A7A3A; }
+.q-opt:disabled { cursor: default; }
+.q-exp {
+  margin-top: 14px; padding: 12px 14px;
+  background: rgba(212,137,10,0.08); border-left: 3px solid var(--honey);
+  border-radius: 0 8px 8px 0; font-size: 13px; color: var(--text2); line-height: 1.5;
+  display: none;
+}
+.q-exp.on { display: block; }
+.next-btn-row { margin-top: 14px; display: flex; justify-content: flex-end; display: none; }
+.next-btn-row.on { display: flex; }
+
+/* ─── PANIC BUTTON ─── */
+.panic-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; padding: 20px 14px;
+}
+.panic-intro {
+  text-align: center; margin-bottom: 28px;
+  font-family: var(--serif); font-size: 16px; line-height: 1.7; color: var(--text2);
+}
+.panic-btn-big {
+  width: 160px; height: 160px; border-radius: 50%;
+  background: linear-gradient(135deg, #C05A2A 0%, #8A3A10 100%);
+  border: none; cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  box-shadow: 0 0 0 16px rgba(192,90,42,0.1), 0 0 0 32px rgba(192,90,42,0.05);
+  transition: transform 0.15s;
+  margin-bottom: 32px;
+}
+.panic-btn-big:active { transform: scale(0.96); }
+.panic-btn-big svg { width: 36px; height: 36px; fill: white; }
+.panic-btn-label { font-size: 13px; font-weight: 500; color: white; letter-spacing: 0.5px; }
+
+/* breathing circle */
+.breath-wrap { display: none; flex-direction: column; align-items: center; width: 100%; }
+.breath-wrap.on { display: flex; }
+.breath-circle-outer {
+  width: 180px; height: 180px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(212,137,10,0.08); margin-bottom: 20px;
+  position: relative;
+}
+.breath-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--honey) 0%, var(--terra) 100%);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 4s ease-in-out;
+}
+.breath-circle.expand { transform: scale(1.4); }
+.breath-circle.contract { transform: scale(1); }
+.breath-label {
+  font-family: var(--serif); font-size: 17px; font-style: italic;
+  color: white; text-align: center; line-height: 1.3;
+}
+.breath-inst {
+  font-family: var(--serif); font-size: 20px; color: var(--text);
+  text-align: center; margin-bottom: 8px; min-height: 30px;
+}
+.breath-count { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+.breath-verse {
+  font-family: var(--serif); font-size: 15px; font-style: italic;
+  color: var(--text2); text-align: center; line-height: 1.6;
+  padding: 0 20px; margin-bottom: 20px;
+}
+.stop-btn {
+  background: none; border: 1px solid var(--border2);
+  border-radius: 100px; padding: 9px 22px;
+  font-family: var(--sans); font-size: 13px; color: var(--text2);
+  cursor: pointer;
+}
+
+.calm-verses {
+  width: 100%; margin-top: 10px;
+}
+.calm-verse-item {
+  padding: 12px 14px; background: rgba(212,137,10,0.07);
+  border: 0.5px solid var(--border); border-radius: var(--r-md);
+  margin-bottom: 10px;
+}
+.calm-v-text { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--text); line-height: 1.55; margin-bottom: 4px; }
+.calm-v-ref { font-size: 11px; color: var(--honey); letter-spacing: 0.5px; }
+
+/* ─── BOOKMARKS PANEL ─── */
+#bk-panel {
+  position: absolute; top: 0; right: -100%; width: 100%; height: 100%;
+  background: var(--cream); z-index: 50;
+  transition: right 0.3s ease; overflow-y: auto; padding: 20px 16px;
+}
+#bk-panel.open { right: 0; }
+.panel-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.panel-title { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--text); }
+.close-btn {
+  width: 32px; height: 32px; background: var(--cream2);
+  border: 0.5px solid var(--border); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; color: var(--text2);
+}
+.bk-card { background: white; border: 0.5px solid var(--border); border-radius: var(--r-md); padding: 14px; margin-bottom: 11px; }
+.bk-v { font-family: var(--serif); font-size: 16px; font-style: italic; line-height: 1.55; color: var(--text); margin-bottom: 5px; }
+.bk-r { font-size: 11px; color: var(--honey); letter-spacing: 0.5px; }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  display: flex; background: white;
+  border-top: 0.5px solid var(--border);
+  position: relative; z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.nitem {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 10px 4px 8px; cursor: pointer;
+  border: none; background: none; font-family: var(--sans);
+  color: var(--text3); font-size: 9.5px; gap: 3px;
+  transition: color 0.15s; letter-spacing: 0.3px;
+}
+.nitem.on { color: var(--amber); }
+.nitem svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ndot { width: 4px; height: 4px; border-radius: 50%; background: var(--honey); opacity: 0; transition: opacity 0.15s; }
+.nitem.on .ndot { opacity: 1; }
+
+/* ─── PAGE HEADER ─── */
+.phdr { padding: 8px 14px 14px; }
+.ptitle { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--text); }
+.psub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+/* ─── TOAST ─── */
+.toast {
+  position: absolute; bottom: 86px; left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--brown); color: var(--cream);
+  font-size: 12px; padding: 9px 18px; border-radius: 100px;
+  opacity: 0; transition: all 0.3s; pointer-events: none;
+  white-space: nowrap; z-index: 300;
+}
+.toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ONBOARDING -->
+<div id="ob">
+  <svg class="ob-icon" viewBox="0 0 80 80" fill="none">
+    <circle cx="40" cy="40" r="38" stroke="rgba(212,137,10,0.3)" stroke-width="1"/>
+    <path d="M40 62C40 62 20 48 20 30C20 19.5 29 11 40 11C51 11 60 19.5 60 30C60 48 40 62 40 62Z" fill="rgba(212,137,10,0.18)" stroke="#D4890A" stroke-width="1.5"/>
+    <path d="M40 11 L40 62" stroke="rgba(212,137,10,0.4)" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="M40 35 Q50 28 56 22" stroke="#D4890A" stroke-width="1.2" fill="none"/>
+    <path d="M40 42 Q30 35 24 30" stroke="#D4890A" stroke-width="1.2" fill="none"/>
+    <circle cx="40" cy="30" r="3" fill="#D4890A" opacity="0.6"/>
+  </svg>
+  <div class="ob-name">Selah</div>
+  <div class="ob-tag">Pause · Reflect · Breathe</div>
+  <div class="ob-verse">"Be still, and know that I am God."</div>
+  <div class="ob-ref">Psalm 46:10</div>
+  <button class="ob-btn" onclick="startApp()">Begin My Journey</button>
+  <div class="ob-guest" onclick="startApp()">Already have an account — Sign in</div>
+</div>
+
+<!-- APP SHELL -->
+<div class="shell">
+  <div class="status">
+    <span class="s-time" id="clk">9:41</span>
+    <div class="s-icons">
+      <svg viewBox="0 0 16 16"><path d="M1 10.5a5.5 5.5 0 0 1 14 0M4.5 13a3 3 0 0 1 7 0M8 15.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/></svg>
+      <svg viewBox="0 0 16 16"><rect x="1" y="5" width="11" height="7" rx="1"/><path d="M12 8h2a1 1 0 0 1 0 2h-2"/></svg>
+    </div>
+  </div>
+
+  <div class="app-hdr">
+    <div class="app-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 16 16"><path d="M8 14C8 14 3 10 3 6a5 5 0 0 1 10 0C13 10 8 14 8 14z"/></svg>
+      </div>
+      <span class="app-name-hdr">Selah</span>
+    </div>
+    <div class="hdr-right">
+      <div class="streak-pill">🔥 7 days</div>
+      <div class="icon-btn" onclick="toggleBK()">
+        <svg viewBox="0 0 24 24"><path d="M5 4h14v17l-7-4-7 4z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="main" id="main">
+
+    <!-- DAILY TAB -->
+    <div class="tab on" id="t-daily">
+      <div class="hero-card">
+        <div class="hero-badge">✦ Sunday Devotional · Week 17</div>
+        <div class="hero-verse">"The Lord is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters."</div>
+        <div class="hero-bottom">
+          <span class="hero-ref">Psalm 23:1–2 · KJV</span>
+          <button class="save-verse-btn" id="svbtn" onclick="saveVerse(this)">♡ Save</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Today's Reflection</div>
+        <div class="reflect-text">The image of green pastures and still waters speaks not of ease, but of trust. A shepherd leads; the sheep do not navigate alone. Today's invitation is not to solve your circumstances — it's to rest in the One who already knows the way forward, before the day grows loud.</div>
+        <div class="prompt-q">Where are you striving today instead of simply following?</div>
+        <textarea class="ta" id="ref-ta" placeholder="Write freely — this is just for you..."></textarea>
+        <button class="btn" onclick="saveRef()">Save reflection</button>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Week 17 Reading Plan</div>
+        <div class="plan-row"><div class="plan-dot done">✓</div><div><div class="plan-day">Monday</div><div class="plan-book">Psalm 19 · Proverbs 3</div></div></div>
+        <div class="plan-row"><div class="plan-dot done">✓</div><div><div class="plan-day">Tuesday</div><div class="plan-book">Psalm 20 · John 10</div></div></div>
+        <div class="plan-row"><div class="plan-dot done">✓</div><div><div class="plan-day">Wednesday</div><div class="plan-book">Psalm 21 · Romans 8</div></div></div>
+        <div class="plan-row"><div class="plan-dot done">✓</div><div><div class="plan-day">Thursday</div><div class="plan-book">Psalm 22 · Hebrews 4</div></div></div>
+        <div class="plan-row"><div class="plan-dot done">✓</div><div><div class="plan-day">Friday</div><div class="plan-book">Psalm 23 · Isaiah 40</div></div></div>
+        <div class="plan-row"><div class="plan-dot done">✓</div><div><div class="plan-day">Saturday</div><div class="plan-book">Psalm 24 · Luke 15</div></div></div>
+        <div class="plan-row"><div class="plan-dot today">NOW</div><div><div class="plan-day" style="color:var(--amber);font-weight:500;">Sunday — Today</div><div class="plan-book">Psalm 23 full · Reflection</div></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Your 7-Day Streak</div>
+        <div class="streak-grid">
+          <div class="sd done">M</div><div class="sd done">T</div><div class="sd done">W</div>
+          <div class="sd done">T</div><div class="sd done">F</div><div class="sd done">S</div>
+          <div class="sd today">S</div><div class="sd">M</div><div class="sd">T</div><div class="sd">W</div>
+        </div>
+        <div class="streak-note">7 days strong. Come back tomorrow to reach 8. ✦</div>
+      </div>
+    </div>
+
+    <!-- CHAT TAB -->
+    <div class="tab" id="t-chat">
+      <div class="chat-wrap">
+        <div style="padding:8px 0 0;">
+          <div class="ctx-bar">
+            <div class="ctx-dot"></div>
+            <div class="ctx-txt">Today's passage: <strong>Psalm 23</strong> — Ask me anything about it, or explore any scripture.</div>
+          </div>
+          <div class="chips">
+            <div class="chip" onclick="qAsk('What does green pastures symbolise in Psalm 23?')">Green pastures?</div>
+            <div class="chip" onclick="qAsk('How do I forgive someone who hurt me, according to scripture?')">Forgiveness</div>
+            <div class="chip" onclick="qAsk('What Bible verses help with anxiety and fear?')">Anxiety & peace</div>
+            <div class="chip" onclick="qAsk('What is the meaning of grace in the New Testament?')">What is grace?</div>
+            <div class="chip" onclick="qAsk('How can I build a stronger daily prayer habit?')">Prayer habits</div>
+          </div>
+        </div>
+        <div class="msgs" id="msgs">
+          <div class="mrow ai">
+            <div class="ai-lbl">
+              <div class="ai-av"><svg viewBox="0 0 16 16"><path d="M8 2C5.8 2 4 3.8 4 6c0 1.4.7 2.6 1.8 3.4L5 12h6l-.8-2.6C11.3 8.6 12 7.4 12 6c0-2.2-1.8-4-4-4z"/></svg></div>
+              <span class="ai-tag">Selah Guide</span>
+            </div>
+            <div class="bubble">Peace be with you. I'm your scripture companion, grounded in today's reading of Psalm 23. Ask me anything about the Word — or simply share what's on your heart.</div>
+            <div class="mtime">Now</div>
+          </div>
+          <div class="typing-row" id="typing">
+            <div class="ai-lbl" style="margin-bottom:4px;">
+              <div class="ai-av"><svg viewBox="0 0 16 16"><path d="M8 2C5.8 2 4 3.8 4 6c0 1.4.7 2.6 1.8 3.4L5 12h6l-.8-2.6C11.3 8.6 12 7.4 12 6c0-2.2-1.8-4-4-4z"/></svg></div>
+            </div>
+            <div class="tbubble"><div class="td"></div><div class="td"></div><div class="td"></div></div>
+          </div>
+        </div>
+        <div class="chat-input-row">
+          <input class="chat-in" id="cin" type="text" placeholder="Ask about scripture..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+          <button class="send-btn" onclick="sendMsg()"><svg viewBox="0 0 16 16"><path d="M2 8l12-6-4 6 4 6z"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRAYER TAB -->
+    <div class="tab" id="t-prayer">
+      <div class="phdr"><div class="ptitle">Prayer Journal</div><div class="psub">Sunday, 27 April</div></div>
+      <div class="ptabs">
+        <button class="ptab on" id="pt-g" onclick="showPT('g')">Guided</button>
+        <button class="ptab" id="pt-j" onclick="showPT('j')">My Prayers</button>
+      </div>
+
+      <div id="pg-g">
+        <div class="card" style="background:rgba(212,137,10,0.08);border-color:rgba(212,137,10,0.25);">
+          <div class="card-label" style="color:var(--amber);">Today's Theme</div>
+          <div style="font-family:var(--serif);font-size:16px;color:var(--brown2);line-height:1.6;">Surrender & Trust — Begin by releasing what you've been holding tightly. God is not waiting on your plans; He's inviting you into His.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">A.C.T.S. Prayer</div>
+          <div class="acts-item">
+            <div class="acts-top"><div class="acts-circle">A</div><div><div class="acts-name">Adoration</div><div class="acts-desc">Praise God for who He is</div></div></div>
+            <textarea class="ta" placeholder="Lord, you are..."></textarea>
+          </div>
+          <div class="acts-item">
+            <div class="acts-top"><div class="acts-circle">C</div><div><div class="acts-name">Confession</div><div class="acts-desc">Bring your honest heart</div></div></div>
+            <textarea class="ta" placeholder="Father, I confess..."></textarea>
+          </div>
+          <div class="acts-item">
+            <div class="acts-top"><div class="acts-circle">T</div><div><div class="acts-name">Thanksgiving</div><div class="acts-desc">Name your gratitude</div></div></div>
+            <textarea class="ta" placeholder="Thank you for..."></textarea>
+          </div>
+          <div class="acts-item">
+            <div class="acts-top"><div class="acts-circle">S</div><div><div class="acts-name">Supplication</div><div class="acts-desc">Bring your requests</div></div></div>
+            <textarea class="ta" placeholder="Lord, I ask..."></textarea>
+          </div>
+          <button class="btn btn-full" onclick="toast('Prayer saved. Amen.')">Save Prayer · Amen</button>
+        </div>
+      </div>
+
+      <div id="pg-j" style="display:none;">
+        <div class="card">
+          <div class="card-label">Recent Prayers</div>
+          <div class="pe"><div class="pe-date">April 26 · 7:14 AM</div><div class="pe-text">Lord, I surrender my fears about what comes next. I trust that you hold my steps, even when I cannot see the path. Help me walk in faith today, not anxiety.</div><span class="pe-tag">Surrender</span></div>
+          <div class="pe"><div class="pe-date">April 25 · 8:02 AM</div><div class="pe-text">Thank you for the provision this week — seen and unseen. You are faithful beyond what I deserve, and I don't want to stop noticing your goodness.</div><span class="pe-tag">Gratitude</span></div>
+          <div class="pe"><div class="pe-date">April 24 · 6:50 AM</div><div class="pe-text">Forgive me for the impatience and unkind words this week. Renew a right spirit in me. Let my words bring life, not harm, to those I love.</div><span class="pe-tag">Confession</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY TAB -->
+    <div class="tab" id="t-community">
+      <div class="phdr"><div class="ptitle">Prayer Wall</div><div class="psub">Lift each other up</div></div>
+      <div class="compose">
+        <div class="card-label">Share a Request</div>
+        <textarea class="compose-ta" id="cta" placeholder="Share your prayer request with the community..."></textarea>
+        <div class="compose-row"><button class="btn" onclick="postPrayer()">Post Request</button></div>
+      </div>
+      <div id="wall">
+        <div class="witem">
+          <div class="wtop"><div class="wav" style="background:rgba(212,137,10,0.18);color:var(--amber);">SL</div><div class="wname">Sarah L.</div><div class="wtime">2h ago</div></div>
+          <div class="wtext">Please pray for my mother's surgery tomorrow morning. She's nervous but placing her trust in God. We've felt such peace reading Psalm 23 together this week.</div>
+          <div class="wverse">"Yea, though I walk through the valley of the shadow of death, I will fear no evil." — Ps 23:4</div>
+          <div><button class="pray-btn" onclick="togglePray(this)"><svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 14 3 8a6 6 0 0 1 9-5.2A6 6 0 0 1 21 8c0 6-9 13-9 13z"/></svg><span>47 praying</span></button></div>
+        </div>
+        <div class="witem">
+          <div class="wtop"><div class="wav" style="background:rgba(192,90,42,0.18);color:var(--terra);">MK</div><div class="wname">Marcus K.</div><div class="wtime">5h ago</div></div>
+          <div class="wtext">Praising God for answered prayer — my job situation has resolved. Still asking for wisdom as I step into this new season.</div>
+          <div><button class="pray-btn" onclick="togglePray(this)"><svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 14 3 8a6 6 0 0 1 9-5.2A6 6 0 0 1 21 8c0 6-9 13-9 13z"/></svg><span>83 praying</span></button></div>
+        </div>
+        <div class="witem">
+          <div class="wtop"><div class="wav" style="background:rgba(184,128,64,0.18);color:var(--brown2);">AJ</div><div class="wname">Amara J.</div><div class="wtime">Yesterday</div></div>
+          <div class="wtext">Moved to a new city and the loneliness is real. Pray I find a church community soon — people who know how to walk with God and with others.</div>
+          <div><button class="pray-btn" onclick="togglePray(this)"><svg viewBox="0 0 24 24"><path d="M12 21C12 21 3 14 3 8a6 6 0 0 1 9-5.2A6 6 0 0 1 21 8c0 6-9 13-9 13z"/></svg><span>31 praying</span></button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRIVIA TAB -->
+    <div class="tab" id="t-trivia">
+      <div class="phdr"><div class="ptitle">Bible Trivia</div><div class="psub">Test your knowledge of the Word</div></div>
+      <div class="trivia-header">
+        <div class="trivia-score-display">⭐ Score: <span id="score-display">0</span> / <span id="total-display">0</span></div>
+      </div>
+      <div class="q-card" id="q-card">
+        <div class="q-num" id="q-num">Question 1 of 8</div>
+        <div class="q-text" id="q-text"></div>
+        <div class="q-opts" id="q-opts"></div>
+        <div class="q-exp" id="q-exp"></div>
+        <div class="next-btn-row" id="next-row">
+          <button class="btn" onclick="nextQ()">Next Question →</button>
+        </div>
+      </div>
+      <div id="trivia-end" style="display:none;">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">🏆</div>
+          <div style="font-family:var(--serif);font-size:22px;margin-bottom:8px;color:var(--text);">Quiz Complete!</div>
+          <div style="font-size:14px;color:var(--text2);margin-bottom:16px;">You scored <strong id="final-score"></strong> out of 8</div>
+          <button class="btn btn-full" onclick="restartTrivia()">Play Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALM / PANIC TAB -->
+    <div class="tab" id="t-calm">
+      <div class="phdr"><div class="ptitle">Be Still</div><div class="psub">Find peace in God's presence</div></div>
+      <div class="panic-wrap">
+        <div class="panic-intro" id="calm-intro">
+          Feeling overwhelmed, anxious, or stressed?<br>Tap the button below to begin a guided breathing exercise rooted in scripture.
+        </div>
+        <button class="panic-btn-big" id="panic-btn" onclick="startBreath()">
+          <svg viewBox="0 0 40 40"><path d="M20 6C20 6 8 12 8 22a12 12 0 0 0 24 0C32 12 20 6 20 6z"/></svg>
+          <span class="panic-btn-label">Be Still</span>
+        </button>
+
+        <div class="breath-wrap" id="breath-wrap">
+          <div class="breath-circle-outer">
+            <div class="breath-circle" id="bc">
+              <div class="breath-label" id="bl">Breathe<br>In</div>
+            </div>
+          </div>
+          <div class="breath-inst" id="bi">Breathe in...</div>
+          <div class="breath-count" id="bcount">Round 1 of 4</div>
+          <div class="breath-verse" id="bverse">"He maketh me to lie down in green pastures: he leadeth me beside the still waters." — Psalm 23:2</div>
+          <button class="stop-btn" onclick="stopBreath()">End Session</button>
+        </div>
+
+        <div class="calm-verses" id="calm-verses">
+          <div class="card-label" style="margin-bottom:12px;">Verses for Anxious Moments</div>
+          <div class="calm-verse-item"><div class="calm-v-text">"Cast all your anxiety on him because he cares for you."</div><div class="calm-v-ref">1 Peter 5:7 · NIV</div></div>
+          <div class="calm-verse-item"><div class="calm-v-text">"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God."</div><div class="calm-v-ref">Philippians 4:6 · NIV</div></div>
+          <div class="calm-verse-item"><div class="calm-v-text">"The Lord is my strength and my shield; my heart trusted in him, and I am helped."</div><div class="calm-v-ref">Psalm 28:7 · KJV</div></div>
+          <div class="calm-verse-item"><div class="calm-v-text">"Come to me, all you who are weary and burdened, and I will give you rest."</div><div class="calm-v-ref">Matthew 11:28 · NIV</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- BOOKMARKS PANEL -->
+  <div id="bk-panel">
+    <div class="panel-hdr">
+      <div class="panel-title">Saved Verses</div>
+      <div class="close-btn" onclick="toggleBK()">✕</div>
+    </div>
+    <div id="bk-list">
+      <div class="bk-card"><div class="bk-v">"Be still, and know that I am God."</div><div class="bk-r">Psalm 46:10 · KJV</div></div>
+      <div class="bk-card"><div class="bk-v">"I can do all things through Christ which strengtheneth me."</div><div class="bk-r">Philippians 4:13 · KJV</div></div>
+    </div>
+    <div id="bk-empty" style="display:none;text-align:center;padding:40px 16px;font-family:var(--serif);font-size:16px;color:var(--text3);">Your saved verses will appear here.</div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nitem on" id="n-daily" onclick="goTab('daily')">
+      <svg viewBox="0 0 24 24"><path d="M12 3C12 3 5 8 5 14a7 7 0 0 0 14 0C19 8 12 3 12 3z"/></svg>Daily<div class="ndot"></div>
+    </button>
+    <button class="nitem" id="n-chat" onclick="goTab('chat')">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Bible AI<div class="ndot"></div>
+    </button>
+    <button class="nitem" id="n-prayer" onclick="goTab('prayer')">
+      <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Prayer<div class="ndot"></div>
+    </button>
+    <button class="nitem" id="n-community" onclick="goTab('community')">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Community<div class="ndot"></div>
+    </button>
+    <button class="nitem" id="n-trivia" onclick="goTab('trivia')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trivia<div class="ndot"></div>
+    </button>
+    <button class="nitem" id="n-calm" onclick="goTab('calm')">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg>Be Still<div class="ndot"></div>
+    </button>
+  </div>
+
+  <div class="toast" id="tst"></div>
+</div>
+
+<script>
+// ── CLOCK ──
+(function tick(){
+  const n=new Date();
+  document.getElementById('clk').textContent=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+  setTimeout(tick,10000);
+})();
+
+// ── ONBOARDING ──
+function startApp(){
+  const ob=document.getElementById('ob');
+  ob.classList.add('out');
+  setTimeout(()=>ob.remove(),700);
+}
+
+// ── TABS ──
+const TABS=['daily','chat','prayer','community','trivia','calm'];
+function goTab(id){
+  TABS.forEach(t=>{
+    document.getElementById('t-'+t).classList.remove('on');
+    document.getElementById('n-'+t).classList.remove('on');
+  });
+  document.getElementById('t-'+id).classList.add('on');
+  document.getElementById('n-'+id).classList.add('on');
+  document.getElementById('main').scrollTop=0;
+}
+
+// ── PRAYER TABS ──
+function showPT(t){
+  document.getElementById('pg-g').style.display=t==='g'?'block':'none';
+  document.getElementById('pg-j').style.display=t==='j'?'block':'none';
+  document.getElementById('pt-g').classList.toggle('on',t==='g');
+  document.getElementById('pt-j').classList.toggle('on',t==='j');
+}
+
+// ── TOAST ──
+function toast(msg){
+  const el=document.getElementById('tst');
+  el.textContent=msg; el.classList.add('on');
+  setTimeout(()=>el.classList.remove('on'),2600);
+}
+
+// ── REFLECTION ──
+function saveRef(){
+  const ta=document.getElementById('ref-ta');
+  if(!ta.value.trim()){toast('Write something first');return;}
+  toast('Reflection saved ✓');
+}
+
+// ── BOOKMARKS ──
+let bkSaved=false;
+function saveVerse(btn){
+  bkSaved=!bkSaved;
+  if(bkSaved){
+    btn.textContent='♥ Saved'; btn.classList.add('saved');
+    const c=document.createElement('div'); c.className='bk-card';
+    c.innerHTML='<div class="bk-v">"The Lord is my shepherd; I shall not want."</div><div class="bk-r">Psalm 23:1 · KJV</div>';
+    document.getElementById('bk-list').prepend(c);
+    toast('Verse saved to bookmarks');
+  } else {
+    btn.textContent='♡ Save'; btn.classList.remove('saved');
+    toast('Removed from bookmarks');
+  }
+}
+function toggleBK(){ document.getElementById('bk-panel').classList.toggle('open'); }
+
+// ── COMMUNITY ──
+function postPrayer(){
+  const ta=document.getElementById('cta');
+  const v=ta.value.trim(); if(!v){toast('Write your request first');return;}
+  const w=document.getElementById('wall');
+  const d=document.createElement('div'); d.className='witem';
+  d.innerHTML=`<div class="wtop"><div class="wav" style="background:rgba(212,137,10,0.18);color:var(--amber);">Me</div><div class="wname">You</div><div class="wtime">Just now</div></div><div class="wtext">${v}</div><div><button class="pray-btn" onclick="togglePray(this)"><svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="1.5"><path d="M12 21C12 21 3 14 3 8a6 6 0 0 1 9-5.2A6 6 0 0 1 21 8c0 6-9 13-9 13z"/></svg><span>1 praying</span></button></div>`;
+  w.prepend(d); ta.value=''; toast('Request shared with the community');
+}
+function togglePray(btn){
+  const sp=btn.querySelector('span');
+  const n=parseInt(sp.textContent);
+  if(btn.classList.contains('done')){ btn.classList.remove('done'); sp.textContent=(n-1)+' praying'; }
+  else { btn.classList.add('done'); sp.textContent=(n+1)+' praying'; }
+}
+
+// ── AI CHAT (Smart Demo Mode) ──
+const history=[];
+
+// Keyword-based smart responses — reads the question and picks the best answer
+const RESPONSES=[
+  {
+    keys:['anxious','anxiety','overwhelmed','stressed','worry','fear','scared','afraid'],
+    reply:`What a tender and honest question to bring before God. Scripture meets you right here — "Cast all your anxiety on him because he cares for you" (1 Peter 5:7). The word "cast" is intentional; it's an act of will, not just a feeling. Paul echoes this in Philippians 4:6-7: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts." You are not alone in this — and you are deeply cared for.`
+  },
+  {
+    keys:['psalm 23','shepherd','green pastures','still waters','pasture'],
+    reply:`Psalm 23 is perhaps the most beloved of all psalms — and for good reason. The image of a shepherd is deeply personal: a shepherd knows each sheep by name, goes ahead to scout the path, and stays through the night. David wrote this from experience; he was himself a shepherd before he was a king. "He maketh me to lie down in green pastures" speaks to God's insistence on rest even when we would rather keep striving. The still waters represent not stagnation but deep, quiet peace — the kind that doesn't depend on your circumstances. God is not simply solving your problems; He is restoring your soul.`
+  },
+  {
+    keys:['trust','trusting','trust god','faith','doubt','believe'],
+    reply:`Trust is not the absence of doubt — it is the choice to move toward God even while doubting. Proverbs 3:5-6 says it plainly: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight." Notice it says "all your heart" — not a partial surrender, but a full one. The beautiful paradox of faith is that you don't need certainty to trust; you need only willingness. Start there, and let God meet you in the middle of your uncertainty.`
+  },
+  {
+    keys:['forgive','forgiveness','hurt','someone hurt','angry','bitterness'],
+    reply:`Forgiveness is one of the most difficult and most liberating things scripture asks of us. Colossians 3:13 says: "Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you." The key phrase is "as the Lord forgave you" — our forgiveness flows from the forgiveness we have already received. This doesn't mean what happened was acceptable, or that trust is immediately restored. It means releasing the weight of bitterness so that you — not just the other person — can be free. Forgiveness is first a gift you give yourself.`
+  },
+  {
+    keys:['grace','what is grace','meaning of grace','saved by grace'],
+    reply:`Grace is perhaps the most beautiful word in all of scripture. Simply put, grace is God's unearned, undeserved favour — love that has no conditions and no expiry. Ephesians 2:8-9 captures it perfectly: "For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast." Grace means you don't have to earn your way to God. You don't have to be enough, do enough, or fix yourself first. You come as you are, and grace meets you there — completely and without reservation.`
+  },
+  {
+    keys:['prayer','pray','how to pray','prayer life','praying'],
+    reply:`Prayer is simply honest conversation with God — there is no perfect formula. Jesus taught his disciples in Matthew 6:9-13 with what we call the Lord's Prayer, which begins with worship ("Our Father in heaven, hallowed be your name") before any requests are made. A simple rhythm that many find helpful is the A.C.T.S. pattern: Adoration, Confession, Thanksgiving, Supplication. But above all, be real. God is not impressed by eloquent words — He is moved by honest hearts. Even a single, whispered "Help me, Lord" is a complete prayer.`
+  },
+  {
+    keys:['daily life','apply','practical','everyday','today','life'],
+    reply:`Bringing scripture into daily life begins with one small habit: pause before you react. In any moment of tension, decision, or temptation, a single breath and a quiet "Lord, what would you have me do?" is the beginning of a surrendered day. Colossians 3:17 gives a beautiful filter: "Whatever you do, whether in word or deed, do it all in the name of the Lord Jesus." That applies to your work, your conversations, your rest. You don't need a dramatic spiritual moment — just consistent, small acts of turning toward God in the ordinary.`
+  },
+  {
+    keys:['lonely','loneliness','alone','isolated','no one'],
+    reply:`Loneliness is one of the most painful human experiences — and scripture does not minimise it. Even David cried out in Psalm 22:1, "My God, my God, why have you forsaken me?" You are in good company in your honesty. And yet the promise runs through all of scripture: "The Lord himself goes before you and will be with you; he will never leave you nor forsake you" (Deuteronomy 31:8). God's presence is not dependent on your feelings of it. He is with you in the quiet, in the ache, in the waiting. You are seen, and you are not alone.`
+  },
+  {
+    keys:['purpose','meaning','why am i here','calling','direction'],
+    reply:`The question of purpose is one God delights to answer — not always all at once, but faithfully over time. Jeremiah 29:11 is often quoted: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." But purpose is also found in the present moment. Ephesians 2:10 says you are "God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do." Your purpose is already being lived in the small acts of faithfulness today — the kindness shown, the work done with integrity, the prayer whispered in the morning.`
+  }
+];
+
+const DEFAULT_REPLIES=[
+  `That is a beautiful question to sit with. Scripture has much to say here — and the thread running through all of it is this: God is near, He is good, and He has not forgotten you. "The Lord is close to the brokenhearted and saves those who are crushed in spirit" (Psalm 34:18). Whatever you are walking through today, you are not walking it alone. Bring it to Him honestly — He can handle every question, every doubt, and every cry of your heart.`,
+  `What a rich thing to explore in the Word. At the heart of all scripture is a God who pursues, who restores, and who speaks — even in the silence. Romans 8:28 reminds us: "And we know that in all things God works for the good of those who love him." That "all things" is breathtaking in its scope. Nothing in your story is outside His redemptive reach. Keep seeking — "Ask and it will be given to you; seek and you will find" (Matthew 7:7).`,
+  `This is exactly the kind of question God loves to meet you in. James 1:5 says: "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you." The invitation is open. You don't need to have it all figured out — you just need to keep turning toward the One who does. He is faithful, and He will guide you step by step.`
+];
+
+let defaultIdx=0;
+
+function getReply(msg){
+  const lower=msg.toLowerCase();
+  for(const r of RESPONSES){
+    if(r.keys.some(k=>lower.includes(k))) return r.reply;
+  }
+  const reply=DEFAULT_REPLIES[defaultIdx % DEFAULT_REPLIES.length];
+  defaultIdx++;
+  return reply;
+}
+
+function sendMsg(){
+  const inp=document.getElementById('cin');
+  const msg=inp.value.trim(); if(!msg) return;
+  inp.value='';
+  addMsg('user',msg);
+  history.push({role:'user',content:msg});
+  document.getElementById('typing').classList.add('on');
+  scrollMsgs();
+  // Simulate natural thinking delay (1.5 - 2.5 seconds)
+  const delay = 1500 + Math.random()*1000;
+  setTimeout(()=>{
+    document.getElementById('typing').classList.remove('on');
+    const reply=getReply(msg);
+    history.push({role:'assistant',content:reply});
+    addMsg('ai',reply);
+  }, delay);
+}
+
+function qAsk(q){ goTab('chat'); setTimeout(()=>{ document.getElementById('cin').value=q; sendMsg(); },100); }
+function addMsg(role,text){
+  const area=document.getElementById('msgs');
+  const typing=document.getElementById('typing');
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const d=document.createElement('div'); d.className='mrow '+role;
+  if(role==='ai'){
+    d.innerHTML=`<div class="ai-lbl"><div class="ai-av"><svg viewBox="0 0 16 16" fill="white" width="10" height="10"><path d="M8 2C5.8 2 4 3.8 4 6c0 1.4.7 2.6 1.8 3.4L5 12h6l-.8-2.6C11.3 8.6 12 7.4 12 6c0-2.2-1.8-4-4-4z"/></svg></div><span class="ai-tag">Selah Guide</span></div><div class="bubble">${text.replace(/\n/g,'<br>')}</div><div class="mtime">${now}</div>`;
+  } else {
+    d.innerHTML=`<div class="bubble">${text}</div><div class="mtime">${now}</div>`;
+  }
+  area.insertBefore(d,typing); scrollMsgs();
+}
+function scrollMsgs(){ const a=document.getElementById('msgs'); setTimeout(()=>{a.scrollTop=a.scrollHeight;},60); }
+
+// ── TRIVIA ──
+const QS=[
+  {q:"How many days did God take to create the world?",opts:["5 days","6 days","7 days","8 days"],a:1,exp:"God created the world in 6 days and rested on the 7th (Genesis 1-2:3)."},
+  {q:"Who built the ark in the Bible?",opts:["Moses","Abraham","Noah","David"],a:2,exp:"God commanded Noah to build the ark to survive the great flood (Genesis 6)."},
+  {q:"In which book is the story of David and Goliath found?",opts:["Genesis","Psalms","1 Samuel","1 Kings"],a:2,exp:"The story of David defeating Goliath is found in 1 Samuel 17."},
+  {q:"How many disciples did Jesus have?",opts:["10","12","14","7"],a:1,exp:"Jesus chose 12 disciples, also called apostles (Matthew 10:1-4)."},
+  {q:"What was the first miracle Jesus performed?",opts:["Healing the blind","Walking on water","Turning water into wine","Feeding 5000"],a:2,exp:"Jesus turned water into wine at a wedding in Cana (John 2:1-11)."},
+  {q:"Who wrote most of the Psalms?",opts:["Solomon","Moses","David","Asaph"],a:2,exp:"King David is credited with writing approximately 73 of the 150 Psalms."},
+  {q:"What is the shortest verse in the Bible?",opts:["God is love","Pray without ceasing","Jesus wept","Rejoice always"],a:2,exp:"'Jesus wept' (John 11:35) is the shortest verse in many Bible translations."},
+  {q:"Which city was Jesus born in?",opts:["Jerusalem","Nazareth","Bethlehem","Jericho"],a:2,exp:"Jesus was born in Bethlehem, fulfilling the prophecy of Micah 5:2."}
+];
+let qIdx=0, score=0;
+
+function loadQ(){
+  const q=QS[qIdx];
+  document.getElementById('q-num').textContent=`Question ${qIdx+1} of ${QS.length}`;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('score-display').textContent=score;
+  document.getElementById('total-display').textContent=qIdx;
+  const opts=document.getElementById('q-opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='q-opt'; b.textContent=o;
+    b.onclick=()=>answerQ(i,b);
+    opts.appendChild(b);
+  });
+  document.getElementById('q-exp').className='q-exp';
+  document.getElementById('next-row').className='next-btn-row';
+}
+
+function answerQ(idx,btn){
+  const q=QS[qIdx];
+  document.querySelectorAll('.q-opt').forEach(b=>{ b.disabled=true; });
+  if(idx===q.a){ btn.classList.add('correct'); score++; }
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.q-opt')[q.a].classList.add('reveal');
+  }
+  document.getElementById('q-exp').textContent=q.exp;
+  document.getElementById('q-exp').classList.add('on');
+  document.getElementById('next-row').classList.add('on');
+  document.getElementById('score-display').textContent=score;
+  document.getElementById('total-display').textContent=qIdx+1;
+}
+
+function nextQ(){
+  qIdx++;
+  if(qIdx>=QS.length){
+    document.getElementById('q-card').style.display='none';
+    document.getElementById('trivia-end').style.display='block';
+    document.getElementById('final-score').textContent=`${score} / ${QS.length}`;
+  } else { loadQ(); }
+}
+
+function restartTrivia(){
+  qIdx=0; score=0;
+  document.getElementById('q-card').style.display='block';
+  document.getElementById('trivia-end').style.display='none';
+  loadQ();
+}
+
+// ── BREATHING ──
+const PHASES=[
+  {label:'Breathe in...',circle:'expand',verse:'"He maketh me to lie down in green pastures." — Psalm 23:2',duration:4000},
+  {label:'Hold...',circle:'expand',verse:'"Be still, and know that I am God." — Psalm 46:10',duration:4000},
+  {label:'Breathe out...',circle:'contract',verse:'"Cast all your anxiety on him because he cares for you." — 1 Peter 5:7',duration:4000},
+  {label:'Rest...',circle:'contract',verse:'"The Lord is my strength and my shield." — Psalm 28:7',duration:4000}
+];
+let breathTimer=null, breathRound=1, phaseIdx=0, totalRounds=4;
+
+function startBreath(){
+  document.getElementById('panic-btn').style.display='none';
+  document.getElementById('calm-intro').style.display='none';
+  document.getElementById('calm-verses').style.display='none';
+  document.getElementById('breath-wrap').classList.add('on');
+  breathRound=1; phaseIdx=0;
+  runPhase();
+}
+
+function runPhase(){
+  const p=PHASES[phaseIdx];
+  document.getElementById('bi').textContent=p.label;
+  document.getElementById('bverse').textContent=p.verse;
+  document.getElementById('bcount').textContent=`Round ${breathRound} of ${totalRounds}`;
+  const bc=document.getElementById('bc');
+  bc.className='breath-circle';
+  setTimeout(()=>bc.classList.add(p.circle),50);
+  document.getElementById('bl').textContent=p.label.replace('..','');
+  breathTimer=setTimeout(()=>{
+    phaseIdx=(phaseIdx+1)%PHASES.length;
+    if(phaseIdx===0){ breathRound++; if(breathRound>totalRounds){ stopBreath(); return; } }
+    runPhase();
+  },p.duration);
+}
+
+function stopBreath(){
+  clearTimeout(breathTimer);
+  document.getElementById('breath-wrap').classList.remove('on');
+  document.getElementById('panic-btn').style.display='flex';
+  document.getElementById('calm-intro').style.display='block';
+  document.getElementById('calm-verses').style.display='block';
+  document.getElementById('bc').className='breath-circle';
+  toast('Session complete. Peace be with you.');
+}
+
+// Init
+loadQ();
+</script>
+</body>
+</html>
