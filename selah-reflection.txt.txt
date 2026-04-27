@@ -1,0 +1,22 @@
+Reflection — Selah Faith App By Neha
+
+
+What was easy:
+Building Selah felt surprisingly achievable because of AI assistance. 
+With Claude guiding each step, I was able to bring a complete faith companion app to life — something I never imagined I could do 
+as someone with no technical background.
+
+
+What was difficult:
+The most frustrating parts had nothing to do with faith or creativity — they were purely technical. 
+Recording the Loom walkthrough was harder than expected due to my surroundings and lack of experience with screen recording tools. 
+Setting up GitHub and understanding what a repository even is felt overwhelming at first. 
+I didn't understand the instructions at times and had to ask for help repeatedly. 
+As someone from a completely non-tech background, even the smallest technical steps required extra effort and patience.
+
+
+What I learned:
+This challenge taught me that you don't need to understand code to build something meaningful — but learning a little tech goes a long way. 
+I learned about GitHub, Loom, HTML files, and AI-powered apps. More than anything, I learned that AI makes building accessible to everyone. 
+The whole process was challenging but also genuinely exciting and fun. 
+It gave me confidence that I can create things I never thought possible.
